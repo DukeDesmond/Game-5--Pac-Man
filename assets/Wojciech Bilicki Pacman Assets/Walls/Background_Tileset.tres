@@ -1,4 +1,6 @@
-[gd_resource type="TileSet" load_steps=4 format=3 uid="uid://ny4fk1wk46g2"]
+[gd_resource type="TileSet" load_steps=5 format=3 uid="uid://crjcujbofgry7"]
+
+[ext_resource type="Texture2D" uid="uid://c1fqpv03ym56d" path="res://assets/Wojciech Bilicki Pacman Assets/Walls/Background_Tileset.png" id="1"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_vhvar"]
 vertices = PackedVector2Array(4, 4, -4, 4, -4, -4, 4, -4)
@@ -15,6 +17,7 @@ source_geometry_group_name = &"navigation_polygon_source_group"
 agent_radius = 0.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tiyxl"]
+texture = ExtResource("1")
 texture_region_size = Vector2i(8, 8)
 0:0/0 = 0
 0:0/0/terrain_set = 0

@@ -1,17 +1,23 @@
-[gd_scene load_steps=4 format=3 uid="uid://btgfis3fs6cya"]
+[gd_scene load_steps=5 format=3 uid="uid://btgfis3fs6cya"]
 
-[ext_resource type="Texture2D" uid="uid://ccobb1sep45lg" path="res://assets/Wojciech Bilicki Pacman Assets/Pellet.png" id="1_vwiaq"]
+[ext_resource type="Texture2D" uid="uid://ccobb1sep45lg" path="res://assets/Wojciech Bilicki Pacman Assets/Pellet/Pellet.png" id="1_b1idq"]
+[ext_resource type="AudioStream" uid="uid://b2xeyy863ka8b" path="res://assets/Brackeys Platformer Assets/sounds/coin.wav" id="2_dxqfk"]
 
 [sub_resource type="GDScript" id="GDScript_nqi51"]
 script/source = "extends Sprite2D
 
 
 @onready var area_2d: Area2D = $Area2D
-@onready var pickup_sound: AudioStreamPlayer2D = $pickupSound
+@onready var audio_stream_player_2d: AudioStreamPlayer2D = $AudioStreamPlayer2D
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	#pickup_sound.play()
+	if body.name == \"Player\":
+		audio_stream_player_2d.play()
+	
+
+
+func _on_audio_stream_player_2d_finished() -> void:
 	queue_free()
 "
 
@@ -19,7 +25,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 radius = 3.0
 
 [node name="pellet" type="Sprite2D"]
-texture = ExtResource("1_vwiaq")
+texture = ExtResource("1_b1idq")
 script = SubResource("GDScript_nqi51")
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -27,6 +33,8 @@ script = SubResource("GDScript_nqi51")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_hva87")
 
-[node name="pickupSound" type="AudioStreamPlayer2D" parent="."]
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_dxqfk")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="finished" from="AudioStreamPlayer2D" to="." method="_on_audio_stream_player_2d_finished"]

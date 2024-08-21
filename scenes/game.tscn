@@ -1,12 +1,19 @@
-[gd_scene load_steps=3 format=3 uid="uid://cuvf1rqkjhiqp"]
+[gd_scene load_steps=4 format=3 uid="uid://cuvf1rqkjhiqp"]
 
+[ext_resource type="PackedScene" uid="uid://btgfis3fs6cya" path="res://scenes/pellet.tscn" id="1_1j0js"]
 [ext_resource type="PackedScene" uid="uid://b3tjgjnwj1o1k" path="res://scenes/background.tscn" id="1_tgxtq"]
 [ext_resource type="PackedScene" uid="uid://bwu2mxwuy42aw" path="res://scenes/player.tscn" id="2_ey1ej"]
 
 [node name="Game" type="Node2D"]
 position = Vector2(1, 0)
 
+[node name="pellet2" parent="." instance=ExtResource("1_1j0js")]
+position = Vector2(73.8301, 192.991)
+
 [node name="Background" parent="." instance=ExtResource("1_tgxtq")]
 
 [node name="Player" parent="." instance=ExtResource("2_ey1ej")]
 position = Vector2(129.702, 192.496)
+
+[node name="pellet" parent="." instance=ExtResource("1_1j0js")]
+position = Vector2(86.5259, 193.047)

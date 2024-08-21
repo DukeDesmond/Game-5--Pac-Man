@@ -1,14 +1,14 @@
-[gd_scene load_steps=15 format=3 uid="uid://bwu2mxwuy42aw"]
+[gd_scene load_steps=14 format=3 uid="uid://bwu2mxwuy42aw"]
 
-[ext_resource type="Texture2D" uid="uid://bypvr20amp4af" path="res://assets/Wojciech Bilicki Pacman Assets/Pac_Person1.png" id="2_frfn8"]
-[ext_resource type="Texture2D" uid="uid://cwj6yx8gijnq4" path="res://assets/Wojciech Bilicki Pacman Assets/Pac_Person2.png" id="3_2tk3q"]
-[ext_resource type="Texture2D" uid="uid://bv7krbhynhbia" path="res://assets/Wojciech Bilicki Pacman Assets/Pac_Person3.png" id="4_ckygv"]
-[ext_resource type="Texture2D" uid="uid://dhxml5ct6mnae" path="res://assets/Wojciech Bilicki Pacman Assets/Pac_Person4.png" id="5_3p4bu"]
-[ext_resource type="Texture2D" uid="uid://n3bis5xx3kf5" path="res://assets/Wojciech Bilicki Pacman Assets/Pac_Person5.png" id="6_5cetx"]
-[ext_resource type="Texture2D" uid="uid://ctbk4m485c8xa" path="res://assets/Wojciech Bilicki Pacman Assets/Pac_Person6.png" id="7_db763"]
-[ext_resource type="Texture2D" uid="uid://tpvau7qtgb15" path="res://assets/Wojciech Bilicki Pacman Assets/Pac_Person7.png" id="8_svp1f"]
-[ext_resource type="Texture2D" uid="uid://bayi4ihl7xlpf" path="res://assets/Wojciech Bilicki Pacman Assets/Pac_Person8.png" id="9_1ckpq"]
-[ext_resource type="Texture2D" uid="uid://bl2psq53hai4r" path="res://assets/Wojciech Bilicki Pacman Assets/Pac_Person9.png" id="10_gjefo"]
+[ext_resource type="Texture2D" uid="uid://cwj6yx8gijnq4" path="res://assets/Wojciech Bilicki Pacman Assets/Pacman/Pac_Person2.png" id="1_128n1"]
+[ext_resource type="Texture2D" uid="uid://bv7krbhynhbia" path="res://assets/Wojciech Bilicki Pacman Assets/Pacman/Pac_Person3.png" id="2_ig35a"]
+[ext_resource type="Texture2D" uid="uid://dhxml5ct6mnae" path="res://assets/Wojciech Bilicki Pacman Assets/Pacman/Pac_Person4.png" id="3_rtmix"]
+[ext_resource type="Texture2D" uid="uid://n3bis5xx3kf5" path="res://assets/Wojciech Bilicki Pacman Assets/Pacman/Pac_Person5.png" id="4_sqt6s"]
+[ext_resource type="Texture2D" uid="uid://ctbk4m485c8xa" path="res://assets/Wojciech Bilicki Pacman Assets/Pacman/Pac_Person6.png" id="5_gonr7"]
+[ext_resource type="Texture2D" uid="uid://tpvau7qtgb15" path="res://assets/Wojciech Bilicki Pacman Assets/Pacman/Pac_Person7.png" id="6_spoyy"]
+[ext_resource type="Texture2D" uid="uid://bayi4ihl7xlpf" path="res://assets/Wojciech Bilicki Pacman Assets/Pacman/Pac_Person8.png" id="7_nsvjt"]
+[ext_resource type="Texture2D" uid="uid://bl2psq53hai4r" path="res://assets/Wojciech Bilicki Pacman Assets/Pacman/Pac_Person9.png" id="8_ld0dw"]
+[ext_resource type="Texture2D" uid="uid://bypvr20amp4af" path="res://assets/Wojciech Bilicki Pacman Assets/Pacman/Pac_Person1.png" id="9_56vj1"]
 
 [sub_resource type="GDScript" id="GDScript_8w11k"]
 resource_name = "player.gd"
@@ -18,13 +18,14 @@ script/source = "extends CharacterBody2D
 
 
 
-const SPEED = 100.0
+const SPEED = 40.0
 var movement_direction = Vector2.ZERO
 
 func _physics_process(delta: float) -> void:
 
 	#get_input()
 	movement_direction = Vector2.ZERO
+	
 	if Input.is_action_pressed(\"ui_right\"):
 		animated_sprite_2d.play(\"moving\")
 		movement_direction = Vector2.RIGHT
@@ -45,25 +46,19 @@ func _physics_process(delta: float) -> void:
 		movement_direction = Vector2.UP
 		rotation_degrees = 270
 		
-	else:
+	if velocity == Vector2.ZERO:
 		animated_sprite_2d.play(\"default\")
 		
 	velocity = movement_direction * SPEED
+	
 	move_and_slide()
-	
-#func get_input():
-	
 "
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_n1glj"]
-atlas = ExtResource("2_frfn8")
-region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_6anvm"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_2tk3q")
+"texture": ExtResource("1_128n1")
 }],
 "loop": true,
 "name": &"default",
@@ -71,31 +66,28 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_frfn8")
+"texture": ExtResource("1_128n1")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_2tk3q")
+"texture": ExtResource("2_ig35a")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_ckygv")
+"texture": ExtResource("3_rtmix")
 }, {
 "duration": 1.0,
-"texture": ExtResource("5_3p4bu")
+"texture": ExtResource("4_sqt6s")
 }, {
 "duration": 1.0,
-"texture": ExtResource("6_5cetx")
+"texture": ExtResource("5_gonr7")
 }, {
 "duration": 1.0,
-"texture": ExtResource("7_db763")
+"texture": ExtResource("6_spoyy")
 }, {
 "duration": 1.0,
-"texture": ExtResource("8_svp1f")
+"texture": ExtResource("7_nsvjt")
 }, {
 "duration": 1.0,
-"texture": ExtResource("9_1ckpq")
-}, {
-"duration": 1.0,
-"texture": ExtResource("10_gjefo")
+"texture": ExtResource("8_ld0dw")
 }],
 "loop": true,
 "name": &"dying",
@@ -103,16 +95,16 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_n1glj")
+"texture": ExtResource("9_56vj1")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_2tk3q")
+"texture": ExtResource("1_128n1")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_ckygv")
+"texture": ExtResource("2_ig35a")
 }, {
 "duration": 1.0,
-"texture": ExtResource("5_3p4bu")
+"texture": ExtResource("3_rtmix")
 }],
 "loop": true,
 "name": &"moving",
@@ -128,7 +120,6 @@ radius = 7.81248
 [node name="Player" type="CharacterBody2D"]
 position = Vector2(-4, 4)
 scale = Vector2(0.640002, 0.640002)
-floor_max_angle = 3.14159
 script = SubResource("GDScript_8w11k")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
