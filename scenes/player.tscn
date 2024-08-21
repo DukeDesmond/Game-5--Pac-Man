@@ -1,0 +1,146 @@
+[gd_scene load_steps=15 format=3 uid="uid://bwu2mxwuy42aw"]
+
+[ext_resource type="Texture2D" uid="uid://bypvr20amp4af" path="res://assets/Wojciech Bilicki Pacman Assets/Pac_Person1.png" id="2_frfn8"]
+[ext_resource type="Texture2D" uid="uid://cwj6yx8gijnq4" path="res://assets/Wojciech Bilicki Pacman Assets/Pac_Person2.png" id="3_2tk3q"]
+[ext_resource type="Texture2D" uid="uid://bv7krbhynhbia" path="res://assets/Wojciech Bilicki Pacman Assets/Pac_Person3.png" id="4_ckygv"]
+[ext_resource type="Texture2D" uid="uid://dhxml5ct6mnae" path="res://assets/Wojciech Bilicki Pacman Assets/Pac_Person4.png" id="5_3p4bu"]
+[ext_resource type="Texture2D" uid="uid://n3bis5xx3kf5" path="res://assets/Wojciech Bilicki Pacman Assets/Pac_Person5.png" id="6_5cetx"]
+[ext_resource type="Texture2D" uid="uid://ctbk4m485c8xa" path="res://assets/Wojciech Bilicki Pacman Assets/Pac_Person6.png" id="7_db763"]
+[ext_resource type="Texture2D" uid="uid://tpvau7qtgb15" path="res://assets/Wojciech Bilicki Pacman Assets/Pac_Person7.png" id="8_svp1f"]
+[ext_resource type="Texture2D" uid="uid://bayi4ihl7xlpf" path="res://assets/Wojciech Bilicki Pacman Assets/Pac_Person8.png" id="9_1ckpq"]
+[ext_resource type="Texture2D" uid="uid://bl2psq53hai4r" path="res://assets/Wojciech Bilicki Pacman Assets/Pac_Person9.png" id="10_gjefo"]
+
+[sub_resource type="GDScript" id="GDScript_8w11k"]
+resource_name = "player.gd"
+script/source = "extends CharacterBody2D
+
+@onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+
+
+
+const SPEED = 100.0
+var movement_direction = Vector2.ZERO
+
+func _physics_process(delta: float) -> void:
+
+	#get_input()
+	movement_direction = Vector2.ZERO
+	if Input.is_action_pressed(\"ui_right\"):
+		animated_sprite_2d.play(\"moving\")
+		movement_direction = Vector2.RIGHT
+		rotation_degrees = 0
+		
+	elif Input.is_action_pressed(\"ui_left\"):
+		animated_sprite_2d.play(\"moving\")
+		movement_direction = Vector2.LEFT
+		rotation_degrees = 180
+	
+	elif Input.is_action_pressed(\"ui_down\"):
+		animated_sprite_2d.play(\"moving\")
+		movement_direction = Vector2.DOWN
+		rotation_degrees = 90
+	
+	elif Input.is_action_pressed(\"ui_up\"):
+		animated_sprite_2d.play(\"moving\")
+		movement_direction = Vector2.UP
+		rotation_degrees = 270
+		
+	else:
+		animated_sprite_2d.play(\"default\")
+		
+	velocity = movement_direction * SPEED
+	move_and_slide()
+	
+#func get_input():
+	
+"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n1glj"]
+atlas = ExtResource("2_frfn8")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6anvm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_2tk3q")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_frfn8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_2tk3q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ckygv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_3p4bu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_5cetx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_db763")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_svp1f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_1ckpq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_gjefo")
+}],
+"loop": true,
+"name": &"dying",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n1glj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_2tk3q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ckygv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_3p4bu")
+}],
+"loop": true,
+"name": &"moving",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_44skc"]
+radius = 6.24998
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2ljsk"]
+radius = 7.81248
+
+[node name="Player" type="CharacterBody2D"]
+position = Vector2(-4, 4)
+scale = Vector2(0.640002, 0.640002)
+floor_max_angle = 3.14159
+script = SubResource("GDScript_8w11k")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(1.2, 1.2)
+sprite_frames = SubResource("SpriteFrames_6anvm")
+animation = &"moving"
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_44skc")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_2ljsk")
