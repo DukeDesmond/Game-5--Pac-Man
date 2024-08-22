@@ -1,19 +1,55 @@
-[gd_scene load_steps=4 format=3 uid="uid://cuvf1rqkjhiqp"]
+[gd_scene load_steps=6 format=3 uid="uid://cuvf1rqkjhiqp"]
 
-[ext_resource type="PackedScene" uid="uid://btgfis3fs6cya" path="res://scenes/pellet.tscn" id="1_1j0js"]
 [ext_resource type="PackedScene" uid="uid://b3tjgjnwj1o1k" path="res://scenes/background.tscn" id="1_tgxtq"]
 [ext_resource type="PackedScene" uid="uid://bwu2mxwuy42aw" path="res://scenes/player.tscn" id="2_ey1ej"]
+[ext_resource type="Script" path="res://script/game_manager.gd" id="3_p5vf3"]
+[ext_resource type="PackedScene" uid="uid://dtii1vnwk3dlv" path="res://scenes/red.tscn" id="4_q0yma"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bf7t8"]
+size = Vector2(16.724, 18)
 
 [node name="Game" type="Node2D"]
 position = Vector2(1, 0)
 
-[node name="pellet2" parent="." instance=ExtResource("1_1j0js")]
-position = Vector2(73.8301, 192.991)
-
 [node name="Background" parent="." instance=ExtResource("1_tgxtq")]
 
 [node name="Player" parent="." instance=ExtResource("2_ey1ej")]
-position = Vector2(129.702, 192.496)
+position = Vector2(63.9983, 119.062)
+collision_layer = 3
+collision_mask = 3
 
-[node name="pellet" parent="." instance=ExtResource("1_1j0js")]
-position = Vector2(86.5259, 193.047)
+[node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("player")]
+script = ExtResource("3_p5vf3")
+player = NodePath("../Player")
+
+[node name="LeftExit" type="Area2D" parent="GameManager"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameManager/LeftExit"]
+position = Vector2(-16.8473, 118.64)
+shape = SubResource("RectangleShape2D_bf7t8")
+
+[node name="ColorRect" type="ColorRect" parent="GameManager/LeftExit"]
+offset_left = -32.0
+offset_top = 98.8898
+offset_right = 8.0
+offset_bottom = 138.89
+
+[node name="RightExit" type="Area2D" parent="GameManager"]
+position = Vector2(283.329, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameManager/RightExit"]
+position = Vector2(-6.13801, 118.64)
+shape = SubResource("RectangleShape2D_bf7t8")
+
+[node name="ColorRect" type="ColorRect" parent="GameManager/RightExit"]
+offset_left = -32.0
+offset_top = 98.8898
+offset_right = 8.0
+offset_bottom = 138.89
+
+[node name="Red" parent="." instance=ExtResource("4_q0yma")]
+position = Vector2(129.371, 102.574)
+scale = Vector2(0.8, 0.8)
+
+[connection signal="body_entered" from="GameManager/LeftExit" to="GameManager" method="_on_left_exit_body_entered"]
+[connection signal="body_entered" from="GameManager/RightExit" to="GameManager" method="_on_right_exit_body_entered"]

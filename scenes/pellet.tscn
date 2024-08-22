@@ -2,31 +2,14 @@
 
 [ext_resource type="Texture2D" uid="uid://ccobb1sep45lg" path="res://assets/Wojciech Bilicki Pacman Assets/Pellet/Pellet.png" id="1_b1idq"]
 [ext_resource type="AudioStream" uid="uid://b2xeyy863ka8b" path="res://assets/Brackeys Platformer Assets/sounds/coin.wav" id="2_dxqfk"]
-
-[sub_resource type="GDScript" id="GDScript_nqi51"]
-script/source = "extends Sprite2D
-
-
-@onready var area_2d: Area2D = $Area2D
-@onready var audio_stream_player_2d: AudioStreamPlayer2D = $AudioStreamPlayer2D
-
-
-func _on_area_2d_body_entered(body: Node2D) -> void:
-	if body.name == \"Player\":
-		audio_stream_player_2d.play()
-	
-
-
-func _on_audio_stream_player_2d_finished() -> void:
-	queue_free()
-"
+[ext_resource type="Script" path="res://script/pellet.gd" id="2_oe6dj"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hva87"]
 radius = 3.0
 
 [node name="pellet" type="Sprite2D"]
 texture = ExtResource("1_b1idq")
-script = SubResource("GDScript_nqi51")
+script = ExtResource("2_oe6dj")
 
 [node name="Area2D" type="Area2D" parent="."]
 
