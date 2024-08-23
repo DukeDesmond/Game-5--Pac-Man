@@ -8,10 +8,10 @@
 [ext_resource type="Texture2D" uid="uid://dcgg14tac7mou" path="res://assets/Wojciech Bilicki Pacman Assets/Ghost/Ghost_Eyes_Up.png" id="5_5pc2a"]
 [ext_resource type="Texture2D" uid="uid://bd4p43ndtu2v8" path="res://assets/Wojciech Bilicki Pacman Assets/Ghost/Ghost_Vulnerable_Blue_01.png" id="6_v62x0"]
 [ext_resource type="Texture2D" uid="uid://blq70pt5we2b8" path="res://assets/Wojciech Bilicki Pacman Assets/Ghost/Ghost_Vulnerable_Blue_02.png" id="7_h61ue"]
-[ext_resource type="Texture2D" uid="uid://cvto5sswde2ik" path="res://assets/Wojciech Bilicki Pacman Assets/Ghost/Ghost_Vulnerable_White_01.png" id="8_jixgn"]
-[ext_resource type="Texture2D" uid="uid://d0uu218xbjg0r" path="res://assets/Wojciech Bilicki Pacman Assets/Ghost/Ghost_Vulnerable_White_02.png" id="9_uaisa"]
 [ext_resource type="Script" path="res://script/state_machine.gd" id="10_4bt65"]
 [ext_resource type="Script" path="res://script/chase.gd" id="11_fjtl7"]
+[ext_resource type="Script" path="res://script/eaten.gd" id="12_ucspn"]
+[ext_resource type="Script" path="res://script/scatter.gd" id="13_0hyjl"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_keibh"]
 atlas = ExtResource("1_wlydc")
@@ -129,12 +129,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": ExtResource("7_h61ue")
-}, {
-"duration": 1.0,
-"texture": ExtResource("8_jixgn")
-}, {
-"duration": 1.0,
-"texture": ExtResource("9_uaisa")
 }],
 "loop": true,
 "name": &"vulnerable",
@@ -142,18 +136,19 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0wdv1"]
-radius = 2.23607
+radius = 5.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8xd28"]
-radius = 5.0
+radius = 7.0
 
 [node name="Red" type="CharacterBody2D"]
 motion_mode = 1
+wall_min_slide_angle = 3.14159
 script = ExtResource("1_je3j4")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ufwfi")
-animation = &"left"
+animation = &"vulnerable"
 autoplay = "left"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -165,13 +160,34 @@ shape = SubResource("CircleShape2D_0wdv1")
 shape = SubResource("CircleShape2D_8xd28")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+unique_name_in_owner = true
+path_desired_distance = 4.0
+target_desired_distance = 4.0
+path_postprocessing = 1
+simplify_path = true
 debug_enabled = true
 debug_path_custom_color = Color(1, 0.0392157, 0.0392157, 1)
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("10_4bt65")
-initial_state = NodePath("Chase")
+initial_state = NodePath("Eaten")
 
 [node name="Chase" type="Node" parent="StateMachine" node_paths=PackedStringArray("ghost")]
 script = ExtResource("11_fjtl7")
 ghost = NodePath("../..")
+
+[node name="ChaseTimer" type="Timer" parent="StateMachine/Chase"]
+
+[node name="Scatter" type="Node" parent="StateMachine" node_paths=PackedStringArray("ghost")]
+script = ExtResource("13_0hyjl")
+ghost = NodePath("../..")
+
+[node name="ScatterTimer" type="Timer" parent="StateMachine/Scatter"]
+
+[node name="Eaten" type="Node" parent="StateMachine" node_paths=PackedStringArray("ghost")]
+script = ExtResource("12_ucspn")
+ghost = NodePath("../..")
+
+[connection signal="navigation_finished" from="NavigationAgent2D" to="StateMachine/Eaten" method="_on_navigation_agent_2d_navigation_finished"]
+[connection signal="timeout" from="StateMachine/Chase/ChaseTimer" to="StateMachine/Chase" method="_on_chase_timer_timeout"]
+[connection signal="timeout" from="StateMachine/Scatter/ScatterTimer" to="StateMachine/Scatter" method="_on_scatter_timer_timeout"]

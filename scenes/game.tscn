@@ -14,9 +14,10 @@ position = Vector2(1, 0)
 [node name="Background" parent="." instance=ExtResource("1_tgxtq")]
 
 [node name="Player" parent="." instance=ExtResource("2_ey1ej")]
-position = Vector2(63.9983, 119.062)
+position = Vector2(129.536, 192.669)
 collision_layer = 3
 collision_mask = 3
+motion_mode = 1
 
 [node name="GameManager" type="Node" parent="." node_paths=PackedStringArray("player")]
 script = ExtResource("3_p5vf3")
@@ -47,9 +48,20 @@ offset_top = 98.8898
 offset_right = 8.0
 offset_bottom = 138.89
 
-[node name="Red" parent="." instance=ExtResource("4_q0yma")]
-position = Vector2(129.371, 102.574)
+[node name="Targets" type="Node" parent="GameManager"]
+
+[node name="RedTarget1" type="Marker2D" parent="GameManager/Targets"]
+position = Vector2(14.6054, 13.3182)
 scale = Vector2(0.8, 0.8)
+
+[node name="Pen" type="Marker2D" parent="GameManager/Targets"]
+position = Vector2(129.994, 121.648)
+scale = Vector2(0.8, 0.8)
+
+[node name="Red" parent="." node_paths=PackedStringArray("marker") instance=ExtResource("4_q0yma")]
+position = Vector2(57.3143, 192.835)
+scale = Vector2(0.8, 0.8)
+marker = [NodePath("../GameManager/Targets/RedTarget1"), NodePath("../GameManager/Targets/Pen")]
 
 [connection signal="body_entered" from="GameManager/LeftExit" to="GameManager" method="_on_left_exit_body_entered"]
 [connection signal="body_entered" from="GameManager/RightExit" to="GameManager" method="_on_right_exit_body_entered"]
