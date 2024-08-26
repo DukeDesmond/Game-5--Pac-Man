@@ -9,15 +9,20 @@ const SPEED = 30
 #Transitioned.emit(self,"Target_state")
 
 func enter():
-	timer.start(5)
+	
+	if ghost.pallet_eaten == true:
+		timer.start(10)
+	else:
+		timer.start(3)
 	 
 func exit():
 	timer.stop()
 
 	
 func update(delta):
-	#Every Frame while active
-	pass
+	if ghost.eaten == true:
+		Transitioned.emit("eaten")
+		
 	
 func physics_update(delta):
 	target()
@@ -31,4 +36,4 @@ func target():
 
 
 func _on_scatter_timer_timeout() -> void:
-		Transitioned.emit("scatter","chase")
+		Transitioned.emit("chase")

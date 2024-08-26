@@ -1,0 +1,205 @@
+[gd_scene load_steps=25 format=3 uid="uid://cfgwduy0f6j7w"]
+
+[ext_resource type="Script" path="res://script/ghost.gd" id="1_bro8y"]
+[ext_resource type="Texture2D" uid="uid://1wrap8m7pjc6" path="res://assets/Wojciech Bilicki Pacman Assets/Ghost Sprites/Ghosts.png" id="2_caspe"]
+[ext_resource type="Texture2D" uid="uid://gcljnvys5tll" path="res://assets/Wojciech Bilicki Pacman Assets/Ghost/Ghost_Eyes_Down.png" id="3_5hmpr"]
+[ext_resource type="Texture2D" uid="uid://cvgpjfpg6poi1" path="res://assets/Wojciech Bilicki Pacman Assets/Ghost/Ghost_Eyes_Left.png" id="4_sjjkm"]
+[ext_resource type="Texture2D" uid="uid://dw3xx2kpcbjrs" path="res://assets/Wojciech Bilicki Pacman Assets/Ghost/Ghost_Eyes_Right.png" id="5_y6xdi"]
+[ext_resource type="Texture2D" uid="uid://dcgg14tac7mou" path="res://assets/Wojciech Bilicki Pacman Assets/Ghost/Ghost_Eyes_Up.png" id="6_eggnt"]
+[ext_resource type="Texture2D" uid="uid://bd4p43ndtu2v8" path="res://assets/Wojciech Bilicki Pacman Assets/Ghost/Ghost_Vulnerable_Blue_01.png" id="7_t5vff"]
+[ext_resource type="Texture2D" uid="uid://blq70pt5we2b8" path="res://assets/Wojciech Bilicki Pacman Assets/Ghost/Ghost_Vulnerable_Blue_02.png" id="8_jio5q"]
+[ext_resource type="Script" path="res://script/state_machine.gd" id="9_mh0vw"]
+[ext_resource type="Script" path="res://script/chase.gd" id="10_2nfvt"]
+[ext_resource type="Script" path="res://script/scatter.gd" id="11_333vt"]
+[ext_resource type="Script" path="res://script/eaten.gd" id="12_es151"]
+[ext_resource type="Script" path="res://script/pen.gd" id="13_e78bl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_swt3f"]
+atlas = ExtResource("2_caspe")
+region = Rect2(64, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4vpxg"]
+atlas = ExtResource("2_caspe")
+region = Rect2(80, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0byjh"]
+atlas = ExtResource("2_caspe")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yxyvh"]
+atlas = ExtResource("2_caspe")
+region = Rect2(16, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_75l2b"]
+atlas = ExtResource("2_caspe")
+region = Rect2(48, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xf0qj"]
+atlas = ExtResource("2_caspe")
+region = Rect2(32, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_knxox"]
+atlas = ExtResource("2_caspe")
+region = Rect2(96, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xf5b0"]
+atlas = ExtResource("2_caspe")
+region = Rect2(112, 32, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ufwfi"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_swt3f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4vpxg")
+}],
+"loop": true,
+"name": &"down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_5hmpr")
+}],
+"loop": false,
+"name": &"ghost_eyes_down",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_sjjkm")
+}],
+"loop": false,
+"name": &"ghost_eyes_left",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_y6xdi")
+}],
+"loop": false,
+"name": &"ghost_eyes_right",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_eggnt")
+}],
+"loop": false,
+"name": &"ghost_eyes_up",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0byjh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yxyvh")
+}],
+"loop": true,
+"name": &"left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_75l2b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xf0qj")
+}],
+"loop": true,
+"name": &"right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_knxox")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xf5b0")
+}],
+"loop": true,
+"name": &"up",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_t5vff")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_jio5q")
+}],
+"loop": true,
+"name": &"vulnerable",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0wdv1"]
+radius = 5.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8xd28"]
+radius = 7.0
+
+[node name="Blue" type="CharacterBody2D"]
+collision_layer = 0
+motion_mode = 1
+wall_min_slide_angle = 3.14159
+script = ExtResource("1_bro8y")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_ufwfi")
+animation = &"up"
+autoplay = "left"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_0wdv1")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_8xd28")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+unique_name_in_owner = true
+path_desired_distance = 4.0
+target_desired_distance = 4.0
+path_postprocessing = 1
+simplify_path = true
+debug_enabled = true
+debug_use_custom = true
+debug_path_custom_color = Color(0.159664, 0.650089, 0.686107, 1)
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state", "ghost")]
+script = ExtResource("9_mh0vw")
+initial_state = NodePath("Pen")
+ghost = NodePath("..")
+
+[node name="Chase" type="Node" parent="StateMachine" node_paths=PackedStringArray("ghost")]
+script = ExtResource("10_2nfvt")
+ghost = NodePath("../..")
+
+[node name="ChaseTimer" type="Timer" parent="StateMachine/Chase"]
+
+[node name="Scatter" type="Node" parent="StateMachine" node_paths=PackedStringArray("ghost")]
+script = ExtResource("11_333vt")
+ghost = NodePath("../..")
+
+[node name="ScatterTimer" type="Timer" parent="StateMachine/Scatter"]
+
+[node name="Eaten" type="Node" parent="StateMachine" node_paths=PackedStringArray("ghost")]
+script = ExtResource("12_es151")
+ghost = NodePath("../..")
+
+[node name="Pen" type="Node" parent="StateMachine" node_paths=PackedStringArray("ghost")]
+script = ExtResource("13_e78bl")
+ghost = NodePath("../..")
+
+[node name="PenTimer" type="Timer" parent="StateMachine/Pen"]
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="navigation_finished" from="NavigationAgent2D" to="StateMachine/Eaten" method="_on_navigation_agent_2d_navigation_finished"]
+[connection signal="timeout" from="StateMachine/Chase/ChaseTimer" to="StateMachine/Chase" method="_on_chase_timer_timeout"]
+[connection signal="timeout" from="StateMachine/Scatter/ScatterTimer" to="StateMachine/Scatter" method="_on_scatter_timer_timeout"]
+[connection signal="timeout" from="StateMachine/Pen/PenTimer" to="StateMachine/Pen" method="_on_pen_timer_timeout"]

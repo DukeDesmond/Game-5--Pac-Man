@@ -8,10 +8,10 @@ const SPEED = 60
 #Transitioned.emit(self,"Target_state")
 
 func enter():
-	pass
+	ghost.collision_shape_2d.disabled=true
 	
 func exit():
-	pass
+	ghost.collision_shape_2d.disabled=false
 
 func update(delta):
 	pass
@@ -26,4 +26,6 @@ func target():
 		navigation_agent_2d.target_position = ghost.marker[1].global_position
 	
 func _on_navigation_agent_2d_navigation_finished() -> void:
-	Transitioned.emit("eaten","chase")
+	ghost.eaten = false
+	ghost.pallet_eaten = false
+	Transitioned.emit("chase")

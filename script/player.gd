@@ -1,10 +1,10 @@
 extends CharacterBody2D
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+var dead : bool = false
 
 
-
-const SPEED = 40.0
+const SPEED = 60.0
 var movement_direction = Vector2.ZERO
 
 func _physics_process(delta: float) -> void:
@@ -32,9 +32,13 @@ func _physics_process(delta: float) -> void:
 		movement_direction = Vector2.UP
 		rotation_degrees = 270
 		
-	if velocity == Vector2.ZERO:
+	if velocity == Vector2.ZERO and dead == false:
 		animated_sprite_2d.play("default")
 		
 	velocity = movement_direction * SPEED
 	
 	move_and_slide()
+	
+func death():
+	dead = true
+	animated_sprite_2d.play("death")

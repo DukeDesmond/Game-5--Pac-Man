@@ -1,9 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://cuvf1rqkjhiqp"]
+[gd_scene load_steps=11 format=3 uid="uid://cuvf1rqkjhiqp"]
 
 [ext_resource type="PackedScene" uid="uid://b3tjgjnwj1o1k" path="res://scenes/background.tscn" id="1_tgxtq"]
 [ext_resource type="PackedScene" uid="uid://bwu2mxwuy42aw" path="res://scenes/player.tscn" id="2_ey1ej"]
 [ext_resource type="Script" path="res://script/game_manager.gd" id="3_p5vf3"]
 [ext_resource type="PackedScene" uid="uid://dtii1vnwk3dlv" path="res://scenes/red.tscn" id="4_q0yma"]
+[ext_resource type="PackedScene" uid="uid://c00u5kvpvt3x1" path="res://scenes/pink.tscn" id="5_58ilr"]
+[ext_resource type="PackedScene" uid="uid://bp4dertrk3635" path="res://scenes/power_pellet.tscn" id="5_vx4jt"]
+[ext_resource type="PackedScene" uid="uid://ct6j3d3oba00p" path="res://scenes/orange.tscn" id="6_3hbs6"]
+[ext_resource type="PackedScene" uid="uid://cfgwduy0f6j7w" path="res://scenes/blue.tscn" id="7_ttnx2"]
+[ext_resource type="PackedScene" uid="uid://btgfis3fs6cya" path="res://scenes/pellet.tscn" id="9_roj2c"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bf7t8"]
 size = Vector2(16.724, 18)
@@ -14,7 +19,8 @@ position = Vector2(1, 0)
 [node name="Background" parent="." instance=ExtResource("1_tgxtq")]
 
 [node name="Player" parent="." instance=ExtResource("2_ey1ej")]
-position = Vector2(129.536, 192.669)
+position = Vector2(13.4172, 178.061)
+scale = Vector2(0.8, 0.8)
 collision_layer = 3
 collision_mask = 3
 motion_mode = 1
@@ -50,18 +56,951 @@ offset_bottom = 138.89
 
 [node name="Targets" type="Node" parent="GameManager"]
 
-[node name="RedTarget1" type="Marker2D" parent="GameManager/Targets"]
-position = Vector2(14.6054, 13.3182)
+[node name="RedTarget" type="Marker2D" parent="GameManager/Targets"]
+position = Vector2(15.8554, 13.3182)
+scale = Vector2(0.8, 0.8)
+
+[node name="PinkTarget" type="Marker2D" parent="GameManager/Targets"]
+position = Vector2(246.903, 11.8466)
+scale = Vector2(0.8, 0.8)
+
+[node name="OrangeTarget" type="Marker2D" parent="GameManager/Targets"]
+position = Vector2(245.515, 239.621)
+scale = Vector2(0.8, 0.8)
+
+[node name="BlueTarget" type="Marker2D" parent="GameManager/Targets"]
+position = Vector2(14.9393, 240.121)
 scale = Vector2(0.8, 0.8)
 
 [node name="Pen" type="Marker2D" parent="GameManager/Targets"]
 position = Vector2(129.994, 121.648)
 scale = Vector2(0.8, 0.8)
 
-[node name="Red" parent="." node_paths=PackedStringArray("marker") instance=ExtResource("4_q0yma")]
-position = Vector2(57.3143, 192.835)
-scale = Vector2(0.8, 0.8)
-marker = [NodePath("../GameManager/Targets/RedTarget1"), NodePath("../GameManager/Targets/Pen")]
+[node name="Ghosts" type="Node" parent="GameManager"]
+
+[node name="Red" parent="GameManager/Ghosts" node_paths=PackedStringArray("marker") instance=ExtResource("4_q0yma")]
+position = Vector2(130.331, 103.881)
+marker = [NodePath("../../Targets/RedTarget"), NodePath("../../Targets/Pen")]
+
+[node name="Pink" parent="GameManager/Ghosts" node_paths=PackedStringArray("marker") instance=ExtResource("5_58ilr")]
+position = Vector2(131.413, 122.977)
+marker = [NodePath("../../Targets/PinkTarget"), NodePath("../../Targets/Pen")]
+
+[node name="Orange" parent="GameManager/Ghosts" node_paths=PackedStringArray("marker") instance=ExtResource("6_3hbs6")]
+position = Vector2(112.773, 122.898)
+marker = [NodePath("../../Targets/OrangeTarget"), NodePath("../../Targets/Pen")]
+
+[node name="Blue" parent="GameManager/Ghosts" node_paths=PackedStringArray("marker") instance=ExtResource("7_ttnx2")]
+position = Vector2(150.037, 121.803)
+marker = [NodePath("../../Targets/BlueTarget"), NodePath("../../Targets/Pen")]
+
+[node name="PowerPellets" type="Node" parent="GameManager"]
+
+[node name="Power_Pellet" parent="GameManager/PowerPellets" instance=ExtResource("5_vx4jt")]
+position = Vector2(15.4364, 192.807)
+
+[node name="Power_Pellet2" parent="GameManager/PowerPellets" instance=ExtResource("5_vx4jt")]
+position = Vector2(246.513, 192.378)
+
+[node name="Power_Pellet3" parent="GameManager/PowerPellets" instance=ExtResource("5_vx4jt")]
+position = Vector2(15.328, 27.9442)
+
+[node name="Power_Pellet4" parent="GameManager/PowerPellets" instance=ExtResource("5_vx4jt")]
+position = Vector2(246.736, 29.8969)
+
+[node name="pellets" type="Node" parent="GameManager"]
+
+[node name="pellet" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(15.9056, 12.9326)
+
+[node name="pellet2" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(24.3787, 12.9326)
+
+[node name="pellet3" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(33.0005, 12.6353)
+
+[node name="pellet4" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(41.7709, 12.6353)
+
+[node name="pellet5" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(50.0953, 12.6353)
+
+[node name="pellet6" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(58.7171, 12.6353)
+
+[node name="pellet7" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(66.7442, 12.784)
+
+[node name="pellet8" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(74.6227, 12.784)
+
+[node name="pellet9" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(83.2445, 12.784)
+
+[node name="pellet10" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(92.3122, 12.338)
+
+[node name="pellet11" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(100.488, 12.338)
+
+[node name="pellet12" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(108.812, 12.1894)
+
+[node name="pellet13" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(117.434, 12.1894)
+
+[node name="pellet14" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(117.434, 12.1894)
+
+[node name="pellet15" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(144.599, 12.9326)
+
+[node name="pellet16" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(153.072, 12.9326)
+
+[node name="pellet17" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(161.694, 12.6353)
+
+[node name="pellet18" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(170.464, 12.6353)
+
+[node name="pellet19" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(178.789, 12.6353)
+
+[node name="pellet20" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(187.411, 12.6353)
+
+[node name="pellet21" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(195.438, 12.784)
+
+[node name="pellet22" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(203.316, 12.784)
+
+[node name="pellet23" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(211.938, 12.784)
+
+[node name="pellet24" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(221.006, 12.338)
+
+[node name="pellet25" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(229.181, 12.338)
+
+[node name="pellet26" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(237.506, 12.1894)
+
+[node name="pellet27" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(246.128, 12.1894)
+
+[node name="pellet28" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(246.128, 12.1894)
+
+[node name="pellet29" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(16.087, 46.1186)
+
+[node name="pellet30" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(24.5601, 46.1186)
+
+[node name="pellet31" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(33.1818, 45.8213)
+
+[node name="pellet32" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(41.9522, 45.8213)
+
+[node name="pellet33" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(50.2767, 45.8213)
+
+[node name="pellet34" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(58.8984, 45.8213)
+
+[node name="pellet35" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(66.9256, 45.97)
+
+[node name="pellet36" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(74.8041, 45.97)
+
+[node name="pellet37" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(83.4258, 45.97)
+
+[node name="pellet38" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(92.4935, 45.524)
+
+[node name="pellet39" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(100.669, 45.524)
+
+[node name="pellet40" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(108.994, 45.3754)
+
+[node name="pellet41" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(117.616, 45.3754)
+
+[node name="pellet42" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(117.616, 45.3754)
+
+[node name="pellet43" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(145.49, 45.2277)
+
+[node name="pellet44" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(153.963, 45.2277)
+
+[node name="pellet45" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(162.585, 44.9304)
+
+[node name="pellet46" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(171.355, 44.9304)
+
+[node name="pellet47" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(179.68, 44.9304)
+
+[node name="pellet48" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(188.301, 44.9304)
+
+[node name="pellet49" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(196.329, 45.0791)
+
+[node name="pellet50" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(204.207, 45.0791)
+
+[node name="pellet51" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(212.829, 45.0791)
+
+[node name="pellet52" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(221.897, 44.6331)
+
+[node name="pellet53" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(230.072, 44.6331)
+
+[node name="pellet54" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(238.397, 44.4845)
+
+[node name="pellet55" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(247.019, 44.4845)
+
+[node name="pellet56" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(247.019, 44.4845)
+
+[node name="pellet57" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(14.5635, 168.885)
+
+[node name="pellet58" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(23.0366, 168.885)
+
+[node name="pellet59" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(31.6584, 168.588)
+
+[node name="pellet60" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(40.4288, 168.588)
+
+[node name="pellet61" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(48.7532, 168.588)
+
+[node name="pellet62" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(57.375, 168.588)
+
+[node name="pellet63" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(65.4021, 168.736)
+
+[node name="pellet64" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(73.2806, 168.736)
+
+[node name="pellet65" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(81.9024, 168.736)
+
+[node name="pellet66" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(90.9701, 168.29)
+
+[node name="pellet67" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(99.1459, 168.29)
+
+[node name="pellet68" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(107.47, 168.142)
+
+[node name="pellet69" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(116.092, 168.142)
+
+[node name="pellet70" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(116.092, 168.142)
+
+[node name="pellet71" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(144.043, 168.885)
+
+[node name="pellet72" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(152.516, 168.885)
+
+[node name="pellet73" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(161.138, 168.588)
+
+[node name="pellet74" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(169.908, 168.588)
+
+[node name="pellet75" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(178.233, 168.588)
+
+[node name="pellet76" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(186.854, 168.588)
+
+[node name="pellet77" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(194.882, 168.736)
+
+[node name="pellet78" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(202.76, 168.736)
+
+[node name="pellet79" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(211.382, 168.736)
+
+[node name="pellet80" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(220.45, 168.29)
+
+[node name="pellet81" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(228.625, 168.29)
+
+[node name="pellet82" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(236.95, 168.142)
+
+[node name="pellet83" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(245.572, 168.142)
+
+[node name="pellet84" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(245.572, 168.142)
+
+[node name="pellet85" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(13.8961, 242.968)
+
+[node name="pellet86" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(22.3692, 242.968)
+
+[node name="pellet87" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(30.991, 242.671)
+
+[node name="pellet88" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(39.7614, 242.671)
+
+[node name="pellet89" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(48.0858, 242.671)
+
+[node name="pellet90" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(56.7076, 242.671)
+
+[node name="pellet91" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(64.7347, 242.82)
+
+[node name="pellet92" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(72.6132, 242.82)
+
+[node name="pellet93" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(81.235, 242.82)
+
+[node name="pellet94" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(90.3027, 242.374)
+
+[node name="pellet95" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(98.4785, 242.374)
+
+[node name="pellet96" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(106.803, 242.225)
+
+[node name="pellet97" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(115.425, 242.225)
+
+[node name="pellet98" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(115.425, 242.225)
+
+[node name="pellet99" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(124.688, 241.967)
+
+[node name="pellet100" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(133.161, 241.967)
+
+[node name="pellet101" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(141.783, 241.67)
+
+[node name="pellet102" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(150.553, 241.67)
+
+[node name="pellet103" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(158.878, 241.67)
+
+[node name="pellet104" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(167.499, 241.67)
+
+[node name="pellet105" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(175.526, 241.819)
+
+[node name="pellet106" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(183.405, 241.819)
+
+[node name="pellet107" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(192.027, 241.819)
+
+[node name="pellet108" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(201.094, 241.373)
+
+[node name="pellet109" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(209.27, 241.373)
+
+[node name="pellet110" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(217.595, 241.224)
+
+[node name="pellet111" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(226.216, 241.224)
+
+[node name="pellet112" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(226.216, 241.224)
+
+[node name="pellet113" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(65.8975, 23.9695)
+
+[node name="pellet114" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(65.6002, 34.3751)
+
+[node name="pellet115" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(15.3562, 35.5643)
+
+[node name="pellet116" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(14.2955, 55.7168)
+
+[node name="pellet117" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(63.9698, 57.3078)
+
+[node name="pellet118" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(117.533, 22.1293)
+
+[node name="pellet119" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(117.887, 32.3823)
+
+[node name="pellet120" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(143.166, 22.306)
+
+[node name="pellet121" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(143.519, 32.5591)
+
+[node name="pellet122" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(194.254, 22.6596)
+
+[node name="pellet123" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(194.608, 32.9126)
+
+[node name="pellet124" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(246.403, 58.0149)
+
+[node name="pellet125" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(246.757, 68.268)
+
+[node name="pellet126" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(195.315, 58.5453)
+
+[node name="pellet127" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(195.668, 68.7983)
+
+[node name="pellet128" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(168.975, 58.5453)
+
+[node name="pellet129" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(169.329, 68.7983)
+
+[node name="pellet130" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(91.1934, 58.1917)
+
+[node name="pellet132" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(246.432, 21.2194)
+
+[node name="pellet133" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(246.21, 37.0329)
+
+[node name="pellet134" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(235.742, 67.9916)
+
+[node name="pellet135" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(225.942, 67.7689)
+
+[node name="pellet136" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(216.142, 67.5461)
+
+[node name="pellet137" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(206.565, 68.6598)
+
+[node name="pellet138" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(169.592, 77.7915)
+
+[node name="pellet139" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(160.906, 77.5688)
+
+[node name="pellet140" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(152.22, 78.0142)
+
+[node name="pellet141" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(143.088, 78.0142)
+
+[node name="pellet142" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(143.088, 78.0142)
+
+[node name="pellet143" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(117.698, 78.6824)
+
+[node name="pellet144" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(109.011, 78.4597)
+
+[node name="pellet145" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(100.325, 78.9051)
+
+[node name="pellet146" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(91.1934, 78.9051)
+
+[node name="pellet147" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(91.1934, 78.9051)
+
+[node name="pellet148" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(66.4709, 71.1097)
+
+[node name="pellet149" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(57.7847, 70.887)
+
+[node name="pellet153" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(49.0984, 69.328)
+
+[node name="pellet154" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(40.4122, 69.1052)
+
+[node name="pellet155" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(31.7259, 69.5507)
+
+[node name="pellet156" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(22.5942, 69.5507)
+
+[node name="pellet157" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(22.5942, 69.5507)
+
+[node name="pellet158" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(13.4625, 69.328)
+
+[node name="pellet131" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(91.5469, 68.4448)
+
+[node name="pellet150" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(125.762, 44.376)
+
+[node name="pellet151" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(135.201, 44.376)
+
+[node name="pellet152" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(13.5031, 119.397)
+
+[node name="pellet159" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(20.8449, 119.199)
+
+[node name="pellet160" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(27.7898, 119.199)
+
+[node name="pellet161" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(34.437, 119.199)
+
+[node name="pellet162" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(41.2827, 119.1)
+
+[node name="pellet163" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(48.5252, 118.901)
+
+[node name="pellet164" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(55.3709, 119)
+
+[node name="pellet165" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(62.5142, 119)
+
+[node name="pellet166" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(69.3598, 119.1)
+
+[node name="pellet167" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(76.2055, 119.1)
+
+[node name="pellet168" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(82.952, 119.1)
+
+[node name="pellet169" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(91.385, 119)
+
+[node name="pellet170" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(168.403, 119.958)
+
+[node name="pellet171" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(175.745, 119.76)
+
+[node name="pellet172" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(182.69, 119.76)
+
+[node name="pellet173" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(189.337, 119.76)
+
+[node name="pellet174" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(196.182, 119.661)
+
+[node name="pellet175" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(203.425, 119.462)
+
+[node name="pellet176" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(210.271, 119.562)
+
+[node name="pellet177" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(217.414, 119.562)
+
+[node name="pellet178" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(224.26, 119.661)
+
+[node name="pellet179" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(231.105, 119.661)
+
+[node name="pellet180" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(237.852, 119.661)
+
+[node name="pellet181" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(246.285, 119.562)
+
+[node name="pellet182" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(55.2658, 192.79)
+
+[node name="pellet183" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(62.6075, 192.592)
+
+[node name="pellet184" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(69.5524, 192.592)
+
+[node name="pellet185" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(76.1997, 192.592)
+
+[node name="pellet186" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(83.0453, 192.493)
+
+[node name="pellet187" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(90.2879, 192.294)
+
+[node name="pellet188" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(97.1335, 192.394)
+
+[node name="pellet189" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(104.277, 192.394)
+
+[node name="pellet190" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(111.122, 192.493)
+
+[node name="pellet191" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(117.968, 192.493)
+
+[node name="pellet192" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(124.715, 192.493)
+
+[node name="pellet193" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(133.148, 192.394)
+
+[node name="pellet194" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(142.594, 192.083)
+
+[node name="pellet195" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(149.935, 191.885)
+
+[node name="pellet196" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(156.88, 191.885)
+
+[node name="pellet197" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(163.527, 191.885)
+
+[node name="pellet198" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(170.373, 191.786)
+
+[node name="pellet199" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(177.616, 191.587)
+
+[node name="pellet200" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(184.461, 191.686)
+
+[node name="pellet201" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(191.605, 191.686)
+
+[node name="pellet202" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(198.45, 191.786)
+
+[node name="pellet203" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(205.296, 191.786)
+
+[node name="pellet204" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(12.9543, 217.374)
+
+[node name="pellet210" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(55.6692, 217.04)
+
+[node name="pellet205" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(20.1968, 217.175)
+
+[node name="pellet206" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(27.0425, 217.274)
+
+[node name="pellet207" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(34.1858, 217.274)
+
+[node name="pellet208" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(41.0315, 217.374)
+
+[node name="pellet209" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(47.8772, 217.374)
+
+[node name="pellet211" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(80.8853, 217.819)
+
+[node name="pellet213" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(88.1278, 217.621)
+
+[node name="pellet214" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(94.9735, 217.72)
+
+[node name="pellet215" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(102.117, 217.72)
+
+[node name="pellet216" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(108.962, 217.819)
+
+[node name="pellet217" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(115.808, 217.819)
+
+[node name="pellet212" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(142.58, 217.596)
+
+[node name="pellet218" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(149.823, 217.398)
+
+[node name="pellet219" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(156.668, 217.497)
+
+[node name="pellet220" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(163.812, 217.497)
+
+[node name="pellet221" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(170.657, 217.596)
+
+[node name="pellet222" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(177.503, 217.596)
+
+[node name="pellet223" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(201.83, 218.346)
+
+[node name="pellet224" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(209.073, 218.148)
+
+[node name="pellet225" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(215.918, 218.247)
+
+[node name="pellet226" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(223.062, 218.247)
+
+[node name="pellet227" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(229.907, 218.346)
+
+[node name="pellet228" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(236.753, 218.346)
+
+[node name="pellet229" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(244.503, 218.096)
+
+[node name="pellet230" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(245.21, 227.289)
+
+[node name="pellet231" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(245.033, 236.658)
+
+[node name="pellet232" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(237.255, 241.784)
+
+[node name="pellet233" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(246.271, 178.675)
+
+[node name="pellet234" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(229.3, 192.287)
+
+[node name="pellet235" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(237.078, 192.11)
+
+[node name="pellet236" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(228.77, 199.888)
+
+[node name="pellet237" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(229.123, 207.313)
+
+[node name="pellet238" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(204.021, 209.257)
+
+[node name="pellet239" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(203.314, 200.419)
+
+[node name="pellet240" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(178.212, 200.772)
+
+[node name="pellet241" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(177.858, 209.434)
+
+[node name="pellet242" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(144.227, 228.811)
+
+[node name="pellet243" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(117.277, 229.479)
+
+[node name="pellet244" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(14.1555, 230.148)
+
+[node name="pellet245" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(31.0826, 206.762)
+
+[node name="pellet246" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(31.0826, 194.512)
+
+[node name="pellet247" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(56.6959, 205.648)
+
+[node name="pellet248" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(57.1413, 179.812)
+
+[node name="pellet249" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(117.945, 180.926)
+
+[node name="pellet250" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(142.668, 180.926)
+
+[node name="pellet251" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(202.803, 180.703)
+
+[node name="pellet252" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(195.025, 158.84)
+
+[node name="pellet253" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(195.025, 150.641)
+
+[node name="pellet254" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(194.815, 143.283)
+
+[node name="pellet255" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(195.025, 133.613)
+
+[node name="pellet256" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(169.167, 131.09)
+
+[node name="pellet257" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(169.378, 139.289)
+
+[node name="pellet258" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(169.167, 147.067)
+
+[node name="pellet259" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(168.957, 155.896)
+
+[node name="pellet260" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(158.656, 142.862)
+
+[node name="pellet261" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(149.072, 142.862)
+
+[node name="pellet262" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(139.192, 143.283)
+
+[node name="pellet263" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(129.101, 143.283)
+
+[node name="pellet264" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(120.061, 143.703)
+
+[node name="pellet265" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(110.811, 143.703)
+
+[node name="pellet266" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(101.982, 143.493)
+
+[node name="pellet267" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(92.3117, 143.283)
+
+[node name="pellet268" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(91.681, 151.271)
+
+[node name="pellet269" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(91.4708, 159.68)
+
+[node name="pellet270" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(92.1014, 135.925)
+
+[node name="pellet271" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(91.4708, 128.147)
+
+[node name="pellet272" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(66.2439, 128.147)
+
+[node name="pellet273" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(66.2439, 135.715)
+
+[node name="pellet274" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(66.2439, 142.862)
+
+[node name="pellet275" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(66.4541, 150.43)
+
+[node name="pellet276" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(65.8234, 158.839)
+
+[node name="pellet277" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(66.3532, 108.515)
+
+[node name="pellet278" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(65.8234, 99.2447)
+
+[node name="pellet279" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(66.0883, 89.9743)
+
+[node name="pellet280" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(65.2937, 80.7041)
+
+[node name="pellet281" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(116.678, 91.2987)
+
+[node name="pellet282" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(115.353, 101.628)
+
+[node name="pellet283" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(105.553, 102.423)
+
+[node name="pellet284" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(96.8127, 102.423)
+
+[node name="pellet285" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(90.9857, 109.045)
+
+[node name="pellet286" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(147.137, 103.218)
+
+[node name="pellet287" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(157.202, 102.423)
+
+[node name="pellet288" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(168.591, 102.158)
+
+[node name="pellet289" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(168.591, 110.634)
+
+[node name="pellet290" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(143.429, 89.7095)
+
+[node name="pellet291" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(194.813, 78.3203)
+
+[node name="pellet292" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(195.343, 87.5906)
+
+[node name="pellet293" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(195.343, 96.0663)
+
+[node name="pellet294" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(195.608, 105.072)
+
+[node name="pellet295" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(194.813, 111.958)
+
+[node name="pellet296" parent="GameManager/pellets" instance=ExtResource("9_roj2c")]
+position = Vector2(194.813, 111.958)
 
 [connection signal="body_entered" from="GameManager/LeftExit" to="GameManager" method="_on_left_exit_body_entered"]
 [connection signal="body_entered" from="GameManager/RightExit" to="GameManager" method="_on_right_exit_body_entered"]
+[connection signal="eaten" from="GameManager/PowerPellets/Power_Pellet" to="GameManager" method="_on_power_pellet_eaten"]
+[connection signal="eaten" from="GameManager/PowerPellets/Power_Pellet2" to="GameManager" method="_on_power_pellet_eaten"]
+[connection signal="eaten" from="GameManager/PowerPellets/Power_Pellet3" to="GameManager" method="_on_power_pellet_eaten"]
+[connection signal="eaten" from="GameManager/PowerPellets/Power_Pellet4" to="GameManager" method="_on_power_pellet_eaten"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bwu2mxwuy42aw"]
+[gd_scene load_steps=16 format=3 uid="uid://bwu2mxwuy42aw"]
 
 [ext_resource type="Script" path="res://script/player.gd" id="1_2jnmu"]
 [ext_resource type="Texture2D" uid="uid://cwj6yx8gijnq4" path="res://assets/Wojciech Bilicki Pacman Assets/Pacman/Pac_Person2.png" id="1_128n1"]
@@ -10,17 +10,14 @@
 [ext_resource type="Texture2D" uid="uid://bayi4ihl7xlpf" path="res://assets/Wojciech Bilicki Pacman Assets/Pacman/Pac_Person8.png" id="7_nsvjt"]
 [ext_resource type="Texture2D" uid="uid://bl2psq53hai4r" path="res://assets/Wojciech Bilicki Pacman Assets/Pacman/Pac_Person9.png" id="8_ld0dw"]
 [ext_resource type="Texture2D" uid="uid://bypvr20amp4af" path="res://assets/Wojciech Bilicki Pacman Assets/Pacman/Pac_Person1.png" id="9_56vj1"]
+[ext_resource type="Texture2D" uid="uid://1wrap8m7pjc6" path="res://assets/Wojciech Bilicki Pacman Assets/Ghost Sprites/Ghosts.png" id="10_tfxcj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n4j3l"]
+atlas = ExtResource("10_tfxcj")
+region = Rect2(32, 64, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_6anvm"]
 animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("1_128n1")
-}],
-"loop": true,
-"name": &"default",
-"speed": 12.0
-}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("1_128n1")
@@ -45,9 +42,20 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": ExtResource("8_ld0dw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n4j3l")
+}],
+"loop": false,
+"name": &"death",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_128n1")
 }],
 "loop": true,
-"name": &"dying",
+"name": &"default",
 "speed": 12.0
 }, {
 "frames": [{
@@ -82,7 +90,7 @@ script = ExtResource("1_2jnmu")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(1.2, 1.2)
 sprite_frames = SubResource("SpriteFrames_6anvm")
-animation = &"moving"
+animation = &"death"
 autoplay = "default"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
